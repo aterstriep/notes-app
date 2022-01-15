@@ -1,6 +1,6 @@
 @mixin button {
     padding: 8px 20px;
-    border: 2px solid;
+    border: 2px solid $action;
     background-color: $action;
     color: white;
     border-radius: 4px;
@@ -13,6 +13,7 @@
 
     &:hover {
         background-color: darken($action, 5%);
+        border-color: darken($action, 5%);
     }
 }
 

@@ -1,31 +1,45 @@
 // typography
 
-$body-font: 'Poppins', sans-serif;
-$heading-font: 'Domine', serif;
+$body-font: 'Roboto', sans-serif;
+$heading-font: 'Playfair Display', serif;
 
 @mixin bodyfont {
-  color: $black;
+  color: white;
   font-family: $body-font;
   font-size: 15px;
   line-height: 1.75;
 }
 
-@mixin headingfont($case: capitalize) {
+@mixin headingfont($case: normal) {
   color: $primary;
   font-family: $heading-font;
   text-transform: $case;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: .5px;
+}
+
+@mixin subtitle($fontsize: 14px) {
+  font-size: $fontsize;
+  text-transform: uppercase;
+  font-family: $body-font;
+  letter-spacing: 1px;
   font-weight: 800;
 }
 
 body {
     @include bodyfont;
+
+    &.light {
+      color: $dark;
+    }
 }
 
 a {
 	color: $action;
 
 	&:hover {
-		color: $secondary;
+		color: $primary;
 	}
 }
 
@@ -36,6 +50,10 @@ h4,
 h5,
 h6 {
 	@include headingfont;
+
+  &.subtitle {
+    @include subtitle;
+  }
 }
 
 .color-white {

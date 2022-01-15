@@ -1,0 +1,43 @@
+// typography
+
+$body-font: 'Poppins', sans-serif;
+$heading-font: 'Domine', serif;
+
+@mixin bodyfont {
+  color: $black;
+  font-family: $body-font;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+@mixin headingfont($case: capitalize) {
+  color: $primary;
+  font-family: $heading-font;
+  text-transform: $case;
+  font-weight: 800;
+}
+
+body {
+    @include bodyfont;
+}
+
+a {
+	color: $action;
+
+	&:hover {
+		color: $secondary;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@include headingfont;
+}
+
+.color-white {
+  color: white;
+}

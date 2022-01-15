@@ -16,8 +16,7 @@ export const create = async (req, res) => {
         return res.status(400).send("Missing title or body");
     }
     const note = await Note.createNote({ title, body });
-    console.log({ note });
-    res.send("ok");
+    res.send({ note });
 }
 
 export const read = (req, res) => {
@@ -33,8 +32,7 @@ export const update = async (req, res) => {
         return res.status(400).send("Missing title and body");
     }
     const note = await Note.updateNote(id, { title, body });
-    console.log({ note });
-    res.send("ok");
+    res.send({ note });
 }
 
 export const deleteNote = async (req, res) => {

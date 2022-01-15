@@ -1,8 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import routes from "./routes/index.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +20,6 @@ app.use((err, req, res, next) => {
     res.status(500).send(err.message);
 })
 
-app.listen(3000, () => {
-    console.log("app listening on port 3000");
+app.listen(8000, () => {
+    console.log("app listening on port 8000");
 });

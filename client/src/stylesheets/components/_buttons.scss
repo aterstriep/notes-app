@@ -1,0 +1,23 @@
+@mixin button {
+    padding: 8px 20px;
+    border: 2px solid;
+    background-color: $action;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: 600;
+    text-transform: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($action, 5%);
+    }
+}
+
+button,
+input[type="submit"],
+a.button {
+    @include button;
+}

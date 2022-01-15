@@ -1,0 +1,20 @@
+@mixin maxwidth($max) {
+    max-width: $max;
+    margin: 0 auto;
+}
+
+.mw-600 {
+    @include maxwidth(600px);
+}
+.mw-800 {
+    @include maxwidth(800px);
+}
+.mw-1000 {
+    @include maxwidth(1000px);
+}
+.mw-1200 {
+    @include maxwidth(1200px);
+}
+.mw-1400 {
+    @include maxwidth(1400px);
+}

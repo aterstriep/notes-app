@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import useNotes from '../hooks/useNotes';
 
-export default function NoteForm({ saveNote, activeNote = {title: "nope", body: ""}, action = "create" }) {
+export default function NoteForm({ setNotes, activeNote = {title: "", body: ""}, action = "create" }) {
 
-    const [note, setNote] = useState(activeNote);
+    const [note, setNote] = useState({});
 
     const titlePlaceholder = action === "create" ? "New Note" : "";
     const titleInput = document.getElementById("note_title") || "";
-
-    // if(titleInput) {
-    //     titleInput.focus();
-    // }
 
     const handleSetNote = (e) => {
         setNote({...note, [e.currentTarget.name]: e.currentTarget.value});
     }
 
-    const handleSaveNote = (e, note) => {
-        setNote(activeNote);
-        saveNote(e, note);
-    }
-
-    const Label = ({ name }) => {
-        if(action === "create") {
-            return <label htmlFor={name}>{name}</label>
-        }
-        return null;
-    }
-
+    // Causes loop???
     useEffect(() => {
         setNote(activeNote);
     }, [activeNote])
@@ -41,6 +27,7 @@ export default function NoteForm({ saveNote, activeNote = {title: "nope", body: 
                     <textarea id="note_body" name="body" rows="8" onChange={handleSetNote} value={note.body} />
                 </div>
                 {/* <input type="submit" value="Save Note" onClick={(e) => handleSaveNote(e, note)} /> */}
+                <input type="submit" value="Save Note" onClick={(e) => setNotes(e, note, "update")} />
             </form>
         )
     }

@@ -18,6 +18,7 @@ export default function useNotes() {
     function reducer(state, action) {
         switch (action.type) {
             case "create":
+                action.data.title = action.data.title || "Untitled";
                 return {
                     action: "create",
                     method: "POST",
@@ -27,6 +28,7 @@ export default function useNotes() {
                 }
                 break;
             case "update":
+                action.data.title = action.data.title || "Untitled";
                 return {
                     action: "update",
                     method: "POST",

@@ -3,18 +3,20 @@ import useNotes from '../hooks/useNotes';
 
 export default function NoteForm({ setNotes, note }) {
 
-    const titlePlaceholder = note.title || "New Note";
+    const titlePlaceholder = note.id ? "Title" : "New Note";
+    const title = note.title === "Untitled" ? "" : note.title;
 
     const handleSetNote = (e) => {
-        const action = note.title ? "update" : "create";
-        setNotes({...note, [e.currentTarget.name]: e.currentTarget.value}, action);
+        const action = note.id ? "update" : "create";
+        let updatedNote = { ...note, [e.currentTarget.name]: e.currentTarget.value };
+        setNotes(updatedNote, action);
     }
 
     if(note) {
         return (
             <form>
                 <div className="field-wrapper">
-                    <input type="text" id="note_title" name="title" onChange={handleSetNote} value={note.title} placeholder={titlePlaceholder} />
+                    <input type="text" id="note_title" name="title" onChange={handleSetNote} value={title} placeholder={titlePlaceholder} />
                 </div>
                 <div className="field-wrapper">
                     <textarea id="note_body" name="body" rows="8" onChange={handleSetNote} value={note.body} />

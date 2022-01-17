@@ -12,7 +12,9 @@ export default function useNotes() {
     }
 
     const deleteNote = (data) => {
-        console.log("note deleted");
+        if(data.id === note.id) {
+            setNote(notes[0])
+        } 
     }
 
     function reducer(state, action) {
@@ -82,13 +84,7 @@ export default function useNotes() {
         options.body = state.body || null;
 
         const response = fetch(`http://localhost:8000${state.path || "/notes"}`, options)
-            .then(response => {
-                if(state.action === "delete") {
-                    return response
-                } else {
-                    return response.json()
-                }
-            })
+            .then(response => response.json())
             .then(data => {
                 if(state.action) {
                     state.callback(data);

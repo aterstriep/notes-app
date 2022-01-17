@@ -14,12 +14,8 @@ export default function NoteForm({ setNotes, note }) {
     if(note) {
         return (
             <form>
-                <div className="field-wrapper">
-                    <input type="text" id="note_title" name="title" onChange={handleSetNote} value={title} placeholder="Title" />
-                </div>
-                <div className="field-wrapper">
-                    <textarea id="note_body" name="body" rows="8" onChange={handleSetNote} value={note.body} />
-                </div>
+                <input type="text" id="note_title" name="title" onChange={handleSetNote} value={title} placeholder="Title" />
+                <textarea id="note_body" name="body" rows="8" onChange={handleSetNote} value={note.body} />
             </form>
         )
     }

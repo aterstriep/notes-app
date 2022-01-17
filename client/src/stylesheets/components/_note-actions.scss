@@ -1,9 +1,10 @@
-#sidebar {
+body #root #sidebar {
     li {
         .note-actions {
             position: relative;
             z-index: 99;
             padding: 2px 20px 2px 0;
+            display: flex;
 
             > svg.svg-inline--fa {
                 position: relative;
@@ -48,5 +49,8 @@
     }
     &.flyout-active nav > ul > li:not(.active) {
         pointer-events: none;
+    }
+    &.flyout-active nav {
+        overflow: visible;
     }
 }

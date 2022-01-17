@@ -9,6 +9,7 @@ const store = new MapStore("notes.json");
 //  title: string
 //  body: string
 //  lastEdited: Date
+//  dateCreated: Date
 // }
 
 store.read().then(notes => {
@@ -22,19 +23,21 @@ store.read().then(notes => {
 export const getNotes = (sort) => {
     const notes = Array.from(NOTES.values());
     notes.sort((a,b) => {
-        if (sort === "asc") {
-            return a.lastEdited - b.lastEdited;
+        if (sort === "desc") {
+            return b.dateCreated - a.dateCreated;
         }
-        return b.lastEdited - a.lastEdited;
+        return a.dateCreated - b.dateCreated;
     })
     return notes;
 }
 
 export const createNote = async ({ title, body }) => {
     const id = uuid();
+    const dateCreated = Date.now();
     const lastEdited = Date.now();
     const note = {
         id,
+        dateCreated,
         lastEdited,
         title,
         body

@@ -38,6 +38,5 @@ export const update = async (req, res) => {
 export const deleteNote = async (req, res) => {
     const { id } = req.params;
     const success = await Note.deleteNote(id);
-    console.log(`deleting ${id}`, success);
-    res.send("ok");
+    res.send({id});
 }

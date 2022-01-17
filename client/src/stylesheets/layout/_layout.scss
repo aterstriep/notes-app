@@ -1,32 +1,43 @@
+@mixin gradient {
+    background-image: linear-gradient(to left, lighten($dark, 5%), $dark);
+}
+
 body {
     background-color: darken($dark, 5%);
 
     #root {
-        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
         display: grid;
         grid-template-columns: $sidebar-width 1fr;
 
         #sidebar {
-            background-image: linear-gradient(to left, lighten($dark, 5%), $dark);
+            @include gradient;
             box-shadow: 0 4px 8px rgba(black, .15);
             position: relative;
+            height: 100vh;
             
             > div {
-                position: fixed;
                 width: $sidebar-width;
+                display: grid;
+                grid-template-rows: auto 1fr auto;
                 height: 100%;
-                padding: 38px 0;
-
-                nav > ul > li {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
+                nav {
+                    overflow-y: scroll;
+                    > ul > li {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
                 }
             }
 
             h3.nav-header {
-                padding: 0 20px;
+                @include gradient;
+                position: relative;
+                z-index: 2;
+                padding: 10px 20px;
                 margin: 0;
                 display: flex;
                 align-items: center;
@@ -49,7 +60,7 @@ body {
             }
             
             .sidebar-hoverable {
-                font-size: 12px;
+                font-size: 14px;
                 cursor: pointer;
 
                 span {
@@ -71,10 +82,32 @@ body {
                     background-color: rgba($primary, .1);
                 }
             }
+
+            a#credit {
+                @include gradient;
+                position: relative;
+                z-index: 2;
+                border-top: 1px solid $dark;
+                display: grid;
+                grid-template-columns: 20px 1fr;
+                align-items: center;
+                padding: 10px 20px;
+                color: white;
+                font-size: 12px;
+                text-decoration: none;
+
+                &:hover {
+                    background-image: none;
+                    svg {
+                        color: $primary;
+                    }
+                }
+            }
         }
 
         main {
             padding: 34px 40px 40px;
+            overflow: scroll;
         }
     }
 

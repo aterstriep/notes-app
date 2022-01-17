@@ -15,6 +15,7 @@ export default function Sidebar({ notes, activeNote, setNotes}) {
     const Note = ({ note }) => {
 
         const currentClass = note.id === activeNote.id ? "current" : "";
+        note.title = note.title || "Untitled Note";
 
         const Menu = () => {
 
@@ -37,7 +38,8 @@ export default function Sidebar({ notes, activeNote, setNotes}) {
             const handleSetNotes = (e, action) => {
                 setNotes(action);
                 closeFlyout(e);
-                if(action.data.id === activeNote.id || action.type === "create") {
+                triggerMobileMenu("close");
+                if(action.type === "create") {
                     nav.scrollTop = 0;
                 }
             }
@@ -48,13 +50,13 @@ export default function Sidebar({ notes, activeNote, setNotes}) {
                         <>
                         <div id="overlay" onClick={(e) => closeFlyout(e)}></div>
                         <ul className="flyout-menu clearlist">
+                            <li onClick={(e) => handleSetNotes(e, { data: {title: `${note.title} copy`, body: note.body}, type: "create" })}>
+                                <FontAwesomeIcon icon="clone" />
+                                Duplicate Note
+                            </li>
                             <li onClick={(e) => handleSetNotes(e, {data: note, type: "delete"})}>
                                 <FontAwesomeIcon icon="trash-alt" />
                                 Delete Note
-                            </li>
-                            <li onClick={(e) => handleSetNotes(e, {data: note, type: "create"})}>
-                                <FontAwesomeIcon icon="clone" />
-                                Duplicate Note
                             </li>
                         </ul>
                         </>
@@ -81,6 +83,14 @@ export default function Sidebar({ notes, activeNote, setNotes}) {
         )
     }
 
+    const triggerMobileMenu = (action) => {
+        if(action === "close") {
+            document.getElementById("mobile-menu").classList.remove("active");
+        } else {
+            document.getElementById("mobile-menu").classList.toggle("active");
+        }
+    }
+
     useEffect(() => {
         if(nav && (activeNote.title === "Untitled" && activeNote.body === "") ) {
             nav.scrollTop = 0;
@@ -89,7 +99,8 @@ export default function Sidebar({ notes, activeNote, setNotes}) {
 
     return (
         <div id="sidebar">
-            <div>
+            <button onClick={() => triggerMobileMenu()} id="menu-trigger"><FontAwesomeIcon icon="bars" /></button>
+            <div id="mobile-menu">
                 <h3 className="nav-header">
                     Notes
                     <button onClick={() => setNotes({ data: {title: "", body: ""}, type: "create" })}>

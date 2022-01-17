@@ -1,26 +1,26 @@
 import React, { useEffect, useReducer, useState } from 'react'
 
-const initialNote = {title: "", body: ""}
-
 export default function useNotes() {
 
     const [notes, setNotes] = useState([]);
-    const [note, setNote] = useState(initialNote);
+    const [note, setNote] = useState({});
     
     const handleSetNote = (data) => {
         setNote(data.note);
     }
 
     const deleteNote = (data) => {
-        if(data.id === note.id) {
-            setNote(notes[0])
-        } 
+        const index = notes.findIndex(note => note.id === data.id);
+        if(index >= notes.length - 1) {
+            setNote(notes[0]);
+        } else {
+            setNote(notes[index + 1]);
+        }
     }
 
     function reducer(state, action) {
         switch (action.type) {
             case "create":
-                action.data.title = action.data.title || "Untitled";
                 return {
                     action: "create",
                     method: "POST",
@@ -30,7 +30,6 @@ export default function useNotes() {
                 }
                 break;
             case "update":
-                action.data.title = action.data.title || "Untitled";
                 return {
                     action: "update",
                     method: "POST",
@@ -55,10 +54,6 @@ export default function useNotes() {
                     callback: deleteNote
                 }
                 break;
-            case "reset":
-                return {
-                    action: "reset"
-                }
             default:
                 throw new Error("missing action type");
         }
@@ -71,12 +66,19 @@ export default function useNotes() {
     
     const handleSetNotes = (data) => {
         setNotes(data.notes);
+
+        if (!data.notes.length) {
+            dispatch({ data: { title: "", body: "" }, type: "create" });
+        } else if (!state.action && !note.id) {
+            setNote(data.notes[0]);
+        }
+
     }
 
     const execute = (state) => {
         state = state || {};
         let options = {
-            method: state.method || "GET",
+            method: state.method,
             headers: {
                 "content-type": "application/json",
             },
@@ -98,16 +100,8 @@ export default function useNotes() {
     }
 
     useEffect(() => {
-        if(state.action !== "reset") {
-            execute(state)
-        } else {
-            setNote(initialNote);
-        }
+        execute(state)
     }, [state])
-
-    useEffect(() => {
-        execute();
-    }, [])
     
     return [notes, note, dispatch]
 }

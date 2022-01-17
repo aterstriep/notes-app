@@ -10,7 +10,8 @@ body #root #sidebar {
                 position: relative;
                 z-index: 99;
                 width: 24px;
-                font-size: 14px;
+                height: 28px;
+                padding: 4px;
                 opacity: 0;
             }
             #overlay {
@@ -52,5 +53,26 @@ body #root #sidebar {
     }
     &.flyout-active nav {
         overflow: visible;
+    }
+
+    @include breakpoint(sm) {
+        li .note-actions {
+            padding: 0;
+            > svg.svg-inline--fa {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 0 14px 0 4px;
+                width: 34px;
+            }
+            ul {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                box-shadow: none;
+                padding: 10px;
+            }
+        }
     }
 }

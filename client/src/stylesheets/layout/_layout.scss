@@ -9,16 +9,19 @@ body {
         height: 100vh;
         overflow: hidden;
         display: grid;
-        grid-template-columns: $sidebar-width 1fr;
+        grid-template-columns: 250px 1fr;
 
         #sidebar {
             @include gradient;
             box-shadow: 0 4px 8px rgba(black, .15);
             position: relative;
             height: 100vh;
+
+            button#menu-trigger {
+                display: none;
+            }
             
             > div {
-                width: $sidebar-width;
                 display: grid;
                 grid-template-rows: auto 1fr auto;
                 height: 100%;
@@ -126,3 +129,63 @@ body {
     }
 }
 
+body #root {
+    @include breakpoint(sm) {
+        grid-template-columns: 40px 1fr;
+
+        #sidebar {
+            position: unset;
+
+            button#menu-trigger {
+                display: block;
+                position: relative;
+                z-index: 99999;
+                background-color: transparent;
+                color: $primary;
+                border: none;
+                padding: 0;
+                font-size: 22px;
+                width: 40px;
+                height: 40px;
+            }
+
+            > div#mobile-menu {
+                @include gradient;
+                box-shadow: 0 4px 8px rgba(black, .15);
+                padding-top: 40px;
+                position: absolute;
+                inset: 0;
+                width: 250px;
+                left: -260px;
+                transition: .25s ease all;
+
+                h3.nav-header {
+                    padding: 10px;
+                }
+
+                .sidebar-hoverable:not(#credit) {
+                    flex-direction: column;
+                    align-items: stretch;
+                    span {
+                        padding-left: 10px;
+                    }
+                    .note-actions {
+                        position: unset;
+
+                        > svg.svg-inline--fa {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &.active {
+                    left: 0;
+                }
+            }
+        }
+        
+        main {
+            padding: 20px;
+        }
+    }
+}

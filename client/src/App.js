@@ -6,10 +6,11 @@ import useNotes from './hooks/useNotes';
 
 export default function App() {
 
-  const [notes, note, setNotes] = useNotes([]);
+  const [notes, note, setNotes] = useNotes({});
 
   const handleSetNotes = (note, type) => {
     setNotes({ data: note, type: type });
+    document.getElementById("mobile-menu").classList.remove("active");
   }
 
   return (

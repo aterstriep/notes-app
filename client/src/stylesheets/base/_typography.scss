@@ -10,7 +10,7 @@ $heading-font: 'Playfair Display', serif;
   line-height: 1.75;
 }
 
-@mixin headingfont($case: normal) {
+@mixin headingfont($case: none) {
   color: $primary;
   font-family: $heading-font;
   text-transform: $case;

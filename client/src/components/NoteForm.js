@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import useNotes from '../hooks/useNotes';
 
-export default function NoteForm({ setNotes, activeNote = {title: "", body: ""}, action = "create" }) {
+export default function NoteForm({ setNotes, note }) {
 
-    const [note, setNote] = useState({});
-
-    const titlePlaceholder = action === "create" ? "New Note" : "";
-    const titleInput = document.getElementById("note_title") || "";
+    const titlePlaceholder = note.title || "New Note";
 
     const handleSetNote = (e) => {
-        setNote({...note, [e.currentTarget.name]: e.currentTarget.value});
+        const action = note.title ? "update" : "create";
+        setNotes({...note, [e.currentTarget.name]: e.currentTarget.value}, action);
     }
-
-    // Causes loop???
-    useEffect(() => {
-        setNote(activeNote);
-    }, [activeNote])
 
     if(note) {
         return (
@@ -26,8 +19,6 @@ export default function NoteForm({ setNotes, activeNote = {title: "", body: ""},
                 <div className="field-wrapper">
                     <textarea id="note_body" name="body" rows="8" onChange={handleSetNote} value={note.body} />
                 </div>
-                {/* <input type="submit" value="Save Note" onClick={(e) => handleSaveNote(e, note)} /> */}
-                <input type="submit" value="Save Note" onClick={(e) => setNotes(e, note, "update")} />
             </form>
         )
     }

@@ -6,41 +6,17 @@ import useNotes from './hooks/useNotes';
 
 export default function App() {
 
-  const [notes, setNotes] = useNotes([]);
-  const [note, setNote] = useState([]);
+  const [notes, note, setNotes] = useNotes([]);
 
-  console.log("app")
-
-  const [activeNote, setActiveNote] = useState({});
-
-  const handleSetNotes = (e, note, type) => {
-    e.preventDefault();
+  const handleSetNotes = (note, type) => {
     setNotes({ data: note, type: type });
   }
 
-  useEffect(() => {
-    // fetch("http://localhost:8000/notes")
-    //     .then(response => response.text())
-    //     .then(response => JSON.parse(response))
-    //     .then(data => {
-
-    //       setNotes(data.notes);
-          if(notes.length && !Object.keys(activeNote).length) {
-            setActiveNote(notes[0]);
-          }
-
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     })
-  }, [notes])
-
   return (
     <>
-      <Sidebar notes={notes || []} activeNote={activeNote} setActiveNote={setActiveNote} />
+      <Sidebar notes={notes || []} activeNote={note} setNotes={setNotes} />
       <main>
-        {/* <Note activeNote={activeNote} setNotes={handleSetNotes} /> */}
-        <NoteForm setNotes={handleSetNotes} activeNote={activeNote} action="create" />
+        <NoteForm setNotes={handleSetNotes} note={note} />
       </main>
     </>
   )

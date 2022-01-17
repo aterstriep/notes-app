@@ -1,50 +1,71 @@
 import React, { useEffect, useReducer, useState } from 'react'
 
-function reducer(state, action) {
-    switch (action.type) {
-        case "create":
-            return {
-                loaded: true,
-                method: "POST",
-                path: "/notes",
-                body: JSON.stringify(action.data),
-            }
-            break;
-        case "update":
-            return {
-                loaded: true,
-                method: "POST",
-                path: `/notes/${action.data.id}`,
-                body: JSON.stringify(action.data)
-            }
-            break;
-        case "delete":
-            return {
-                loaded: true,
-                method: "POST",
-                path: "/notes",
-                body: JSON.stringify(action.data)
-            }
-            break;
-        case "init":
-            return {
-                loaded: true,
-                method: "GET",
-                path: "/notes",
-            }
-        default:
-            throw new Error("missing action type");
-    }
-}
+const initialNote = {title: "", body: ""}
 
 export default function useNotes() {
 
     const [notes, setNotes] = useState([]);
+    const [note, setNote] = useState(initialNote);
+    
+    const handleSetNote = (data) => {
+        setNote(data.note);
+    }
+
+    const deleteNote = (data) => {
+        console.log("delete");
+    }
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case "create":
+                return {
+                    action: "create",
+                    method: "POST",
+                    path: "/notes",
+                    body: JSON.stringify(action.data),
+                    callback: handleSetNote
+                }
+                break;
+            case "update":
+                return {
+                    action: "update",
+                    method: "POST",
+                    path: `/notes/${action.data.id}`,
+                    body: JSON.stringify(action.data),
+                    callback: handleSetNote
+                }
+                break;
+            case "read":
+                return {
+                    action: "read",
+                    method: "GET",
+                    path: `/notes/${action.data.id}`,
+                    callback: handleSetNote
+                }
+                break;
+            case "delete":
+                return {
+                    action: "delete",
+                    method: "POST",
+                    path: "/notes",
+                    body: JSON.stringify(action.data),
+                    callback: deleteNote
+                }
+                break;
+            case "reset":
+                return {
+                    action: "reset"
+                }
+            default:
+                throw new Error("missing action type");
+        }
+    }
+
     const [state, dispatch] = useReducer(reducer, {
         method: "GET",
         path: "/notes",
     });
-
+    
     const handleSetNotes = (data) => {
         setNotes(data.notes);
     }
@@ -62,7 +83,8 @@ export default function useNotes() {
         const response = fetch(`http://localhost:8000${state.path || "/notes"}`, options)
             .then(response => response.json())
             .then(data => {
-                if(state.loaded) {
+                if(state.action) {
+                    state.callback(data);
                     execute();
                 } else {
                     handleSetNotes(data);
@@ -73,8 +95,10 @@ export default function useNotes() {
     }
 
     useEffect(() => {
-        if(state.loaded) {
+        if(state.action !== "reset") {
             execute(state)
+        } else {
+            setNote(initialNote);
         }
     }, [state])
 
@@ -82,5 +106,5 @@ export default function useNotes() {
         execute();
     }, [])
     
-    return [notes, dispatch]
+    return [notes, note, dispatch]
 }

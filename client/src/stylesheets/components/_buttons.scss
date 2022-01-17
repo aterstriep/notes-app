@@ -8,8 +8,11 @@
     text-transform: uppercase;
     letter-spacing: .5px;
     font-weight: 600;
+    line-height: 1;
     text-transform: none;
     cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
     &:hover {
         background-color: darken($action, 5%);
@@ -17,8 +20,24 @@
     }
 }
 
+@mixin buttonSecondary {
+
+}
+
 button,
 input[type="submit"],
 a.button {
     @include button;
+
+    &.button-secondary {
+        background-color: darken($dark, 5%);
+        border-color: darken($dark, 10%);
+        border-width: 1px;
+        padding: 8px 12px;
+        font-size: 12px;
+
+        &:hover {
+            background-color: darken($dark, 10%);
+        }
+    }
 }

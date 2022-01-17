@@ -1,4 +1,4 @@
-#Notes App
+# Notes App
 
 App created to store simple plain text notes.
 

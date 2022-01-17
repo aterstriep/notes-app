@@ -6,9 +6,9 @@ import 'normalize.css';
 import './stylesheets/main.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEllipsisH, faTrashAlt, faClone } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPlus);
+library.add(faPlus, faEllipsisH, faTrashAlt, faClone);
 
 ReactDOM.render(
   <React.StrictMode>

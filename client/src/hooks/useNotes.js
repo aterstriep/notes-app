@@ -12,7 +12,7 @@ export default function useNotes() {
     }
 
     const deleteNote = (data) => {
-        console.log("delete");
+        console.log("note deleted");
     }
 
     function reducer(state, action) {
@@ -48,9 +48,8 @@ export default function useNotes() {
             case "delete":
                 return {
                     action: "delete",
-                    method: "POST",
-                    path: "/notes",
-                    body: JSON.stringify(action.data),
+                    method: "DELETE",
+                    path: `/notes/${action.data.id}`,
                     callback: deleteNote
                 }
                 break;
@@ -83,7 +82,13 @@ export default function useNotes() {
         options.body = state.body || null;
 
         const response = fetch(`http://localhost:8000${state.path || "/notes"}`, options)
-            .then(response => response.json())
+            .then(response => {
+                if(state.action === "delete") {
+                    return response
+                } else {
+                    return response.json()
+                }
+            })
             .then(data => {
                 if(state.action) {
                     state.callback(data);

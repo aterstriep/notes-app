@@ -5,6 +5,8 @@ import cors from "cors";
 
 const app = express();
 
+const PORT = process.env.PORT || 3001;
+
 app.use(cors());
 
 app.use(morgan("dev"));
@@ -20,6 +22,6 @@ app.use((err, req, res, next) => {
     res.status(500).send(err.message);
 })
 
-app.listen(8000, () => {
-    console.log("app listening on port 8000");
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
 });

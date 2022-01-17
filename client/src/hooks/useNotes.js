@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 
 export default function useNotes() {
 
@@ -28,7 +28,6 @@ export default function useNotes() {
                     body: JSON.stringify(action.data),
                     callback: handleSetNote
                 }
-                break;
             case "update":
                 return {
                     action: "update",
@@ -37,7 +36,6 @@ export default function useNotes() {
                     body: JSON.stringify(action.data),
                     callback: handleSetNote
                 }
-                break;
             case "read":
                 return {
                     action: "read",
@@ -45,7 +43,6 @@ export default function useNotes() {
                     path: `/notes/${action.data.id}`,
                     callback: handleSetNote
                 }
-                break;
             case "delete":
                 return {
                     action: "delete",
@@ -53,7 +50,6 @@ export default function useNotes() {
                     path: `/notes/${action.data.id}`,
                     callback: deleteNote
                 }
-                break;
             default:
                 throw new Error("missing action type");
         }
@@ -85,7 +81,7 @@ export default function useNotes() {
         }
         options.body = state.body || null;
 
-        const response = fetch(`http://localhost:8000${state.path || "/notes"}`, options)
+        const response = fetch(state.path || "/notes", options)
             .then(response => response.json())
             .then(data => {
                 if(state.action) {

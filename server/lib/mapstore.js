@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 
-const dataDir = "data";
+const dataDir = "server/data";
 
 export default class MapStore {
     constructor(filename) {

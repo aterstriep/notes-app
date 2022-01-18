@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import routes from "./routes/index.js";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 
@@ -26,4 +27,4 @@ app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
 
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve("server", '../client/build')));

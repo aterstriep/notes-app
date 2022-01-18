@@ -11,7 +11,7 @@ router.post("/notes/:id", notes.update);
 router.delete("/notes/:id", notes.deleteNote);
 
 router.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..client/build", "index.html"));
+    res.sendFile(path.resolve("server", "../client/build", "index.html"));
 })
 
 export default router;

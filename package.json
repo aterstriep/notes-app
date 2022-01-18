@@ -1,21 +1,14 @@
 {
   "name": "notes",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "Plain text notes app",
   "scripts": {
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ashley Terstriep",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.0.0-alpha.8",
-    "morgan": "^1.10.0",
     "normalize.css": "^8.0.1",
-    "sass": "^1.48.0",
-    "uuid": "^8.3.2"
+    "sass": "^1.48.0"
   }
 }

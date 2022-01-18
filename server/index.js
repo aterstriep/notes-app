@@ -12,6 +12,9 @@ app.use(cors());
 
 app.use(morgan("dev"));
 app.use(express.json());
+
+app.use(express.static(path.resolve("server", "../client/build")));
+
 app.use(routes);
 
 app.use((req, res) => {

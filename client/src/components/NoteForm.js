@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import useNotes from '../hooks/useNotes';
 
 export default function NoteForm({ setNotes, note }) {
 

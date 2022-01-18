@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NoteForm from './components/NoteForm'
 import Sidebar from './components/Sidebar';
-import Note from './components/Note';
 import useNotes from './hooks/useNotes';
 
 export default function App() {

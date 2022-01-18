@@ -25,3 +25,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
+
+app.use(express.static(path.resolve(__dirname, '../client/build')));

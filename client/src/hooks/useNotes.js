@@ -79,7 +79,7 @@ export default function useNotes() {
             },
         }
         options.body = state.body || null;
-        const response = await fetch(state.path || "/notes", options)
+        const response = await fetch(`/api${state.path}`, options);
         return await response.json();
     }
     
@@ -96,7 +96,7 @@ export default function useNotes() {
                     handleSetNotes(response);
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(`Error: ${error}`));
     }, [state])
     
     return [notes, note, dispatch]
